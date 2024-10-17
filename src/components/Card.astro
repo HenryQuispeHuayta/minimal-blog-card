@@ -1,61 +1,80 @@
 ---
 interface Props {
-	title: string;
-	body: string;
-	href: string;
+  title: string;
+  description: string;
+  author: string;
+  tags: string[];
+  img: string;
+  imgAlt: string;
 }
 
-const { href, title, body } = Astro.props;
+const { title, description, author, tags, img, imgAlt } = Astro.props;
 ---
 
-<li class="link-card">
-	<a href={href}>
-		<h2>
-			{title}
-			<span>&rarr;</span>
-		</h2>
-		<p>
-			{body}
-		</p>
-	</a>
-</li>
+<article>
+  <main>
+    <img src={img} alt={imgAlt} />
+    {
+      tags.map((tag) => (
+        <span>
+          <strong>{tag}</strong>
+        </span>
+      ))
+    }
+    <h2>{title}</h2>
+    <p>{description}</p>
+  </main>
+  <hr />
+  <footer>
+    <span>{author}</span>
+  </footer>
+</article>
 <style>
-	.link-card {
-		list-style: none;
-		display: flex;
-		padding: 1px;
-		background-color: #23262d;
-		background-image: none;
-		background-size: 400%;
-		border-radius: 7px;
-		background-position: 100%;
-		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-	}
-	.link-card > a {
-		width: 100%;
-		text-decoration: none;
-		line-height: 1.4;
-		padding: calc(1.5rem - 1px);
-		border-radius: 8px;
-		color: white;
-		background-color: #23262d;
-		opacity: 0.8;
-	}
-	h2 {
-		margin: 0;
-		font-size: 1.25rem;
-		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-	p {
-		margin-top: 0.5rem;
-		margin-bottom: 0;
-	}
-	.link-card:is(:hover, :focus-within) {
-		background-position: 0;
-		background-image: var(--accent-gradient);
-	}
-	.link-card:is(:hover, :focus-within) h2 {
-		color: rgb(var(--accent-light));
-	}
+  article {
+    background-color: #ffff;
+    width: 23rem;
+    border: 1px solid #E5EAF0;
+    border-radius: 10px;
+    /* box-shadow: 0px 30px 100px 0px rgba(17, 23, 41, 0.05); */
+		box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  }
+  main {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  h2 {
+    color: #20293a;
+    font-size: 1.125rem;
+    margin-bottom: 0;
+  }
+  footer {
+    padding: 0.65rem 1rem 1.25rem 1rem;
+  }
+  footer span {
+    color: #6c727f;
+    font-size: 0.75rem;
+    margin: 0.5rem 0;
+  }
+  p {
+    color: #6c727f;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+  img {
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  span strong {
+    background-color: #e6d6fc;
+    color: #883ae1;
+    font-size: 0.625rem;
+    padding: 0.25rem 1.125rem;
+    border-radius: 15px;
+    margin-right: 0.5rem;
+  }
+  hr {
+    border: 1px solid #e5eaf0;
+  }
 </style>
